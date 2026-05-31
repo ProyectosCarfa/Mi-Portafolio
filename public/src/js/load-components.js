@@ -27,11 +27,11 @@ async function loadComponent(containerId, componentPath) {
 
 async function loadAllComponents() {
     const components = [
-        { container: 'header-container', path: '/public/components/header.html' },
-        {container: 'about-container', path: '/public/components/about-me.html' },
-        {container: 'projects-container', path: '/public/components/projects.html'},
-        {container: 'contactame-container', path: '/public/components/contactame.html'},
-        {container: 'footer-container', path: '/public/components/footer.html'}
+        { container: 'header-container', path: './public/components/header.html' },
+        {container: 'about-container', path: './public/components/about-me.html' },
+        {container: 'projects-container', path: './public/components/projects.html'},
+        {container: 'contactame-container', path: './public/components/contactame.html'},
+        {container: 'footer-container', path: './public/components/footer.html'}
         // Agrega más componentes aquí si los tienes
         // { container: 'footer-container', path: 'footer.html' }
     ];
