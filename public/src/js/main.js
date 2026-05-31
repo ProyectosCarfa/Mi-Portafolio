@@ -146,17 +146,17 @@ function initializeAll() {
 document.addEventListener('componentLoaded', (e) => {
     console.log(`Componente cargado: ${e.detail.component}`);
     
-    if (e.detail.component === '/public/components/header.html') {
+    if (e.detail.component === './public/components/header.html') {
         initHeader();
         initNavigation();
     }
-    if (e.detail.component === '/public/components/about-me.html') {
+    if (e.detail.component === './public/components/about-me.html') {
         setTimeout(initTabs, 100);
     }
-    if (e.detail.component === '/public/components/projects.html') {
+    if (e.detail.component === './public/components/projects.html') {
         setTimeout(initProjectsFilters, 100);
     }
-    if (e.detail.component === '/public/components/contactame.html') {
+    if (e.detail.component === './public/components/contactame.html') {
         setTimeout(initContactForm, 100);
     }
 });
