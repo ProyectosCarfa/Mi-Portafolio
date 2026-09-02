@@ -26,46 +26,28 @@ async function loadComponent(containerId, componentPath) {
 }
 
 async function loadAllComponents() {
-
-    // ==========================================
-    // CARGAR HEADER PRIMERO
-    // ==========================================
-
-    await loadComponent(
-        'header-container',
-        './public/components/header.html'
-    );
-
-    // ==========================================
-    // INICIALIZAR MENÚ INMEDIATAMENTE
-    // ==========================================
-
-    initializeMenuToggle();
-
-
-    // ==========================================
-    // CARGAR RESTO DE COMPONENTES
-    // ==========================================
-
+    // Cargar HEADER
+    await loadComponent('header-container', './public/components/header.html');
+    
+    // Inicializar menú DESPUÉS de cargar el header
+    setTimeout(() => {
+        initializeMenuToggle();
+    }, 200);
+    
+    // Cargar resto de componentes
     const components = [
         { container: 'about-container', path: './public/components/about-me.html' },
         { container: 'projects-container', path: './public/components/projects.html' },
         { container: 'contactame-container', path: './public/components/contactame.html' },
         { container: 'footer-container', path: './public/components/footer.html' }
-        // Agrega más componentes aquí si los tienes
-        // { container: 'footer-container', path: 'footer.html' }
     ];
-
-    // Cargar todos los componentes en paralelo
+    
     await Promise.all(components.map(comp =>
         loadComponent(comp.container, comp.path)
     ));
-
-    // Inicializar funcionalidades después de cargar los componentes
+    
     initializeAfterComponents();
 }
-
-
 // ==========================================
 // MENÚ HAMBURGUESA
 // ==========================================
