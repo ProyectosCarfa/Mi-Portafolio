@@ -26,12 +26,32 @@ async function loadComponent(containerId, componentPath) {
 }
 
 async function loadAllComponents() {
+
+    // ==========================================
+    // CARGAR HEADER PRIMERO
+    // ==========================================
+
+    await loadComponent(
+        'header-container',
+        './public/components/header.html'
+    );
+
+    // ==========================================
+    // INICIALIZAR MENÚ INMEDIATAMENTE
+    // ==========================================
+
+    initializeMenuToggle();
+
+
+    // ==========================================
+    // CARGAR RESTO DE COMPONENTES
+    // ==========================================
+
     const components = [
-        { container: 'header-container', path: './public/components/header.html' },
-        {container: 'about-container', path: './public/components/about-me.html' },
-        {container: 'projects-container', path: './public/components/projects.html'},
-        {container: 'contactame-container', path: './public/components/contactame.html'},
-        {container: 'footer-container', path: './public/components/footer.html'}
+        { container: 'about-container', path: './public/components/about-me.html' },
+        { container: 'projects-container', path: './public/components/projects.html' },
+        { container: 'contactame-container', path: './public/components/contactame.html' },
+        { container: 'footer-container', path: './public/components/footer.html' }
         // Agrega más componentes aquí si los tienes
         // { container: 'footer-container', path: 'footer.html' }
     ];
@@ -45,18 +65,55 @@ async function loadAllComponents() {
     initializeAfterComponents();
 }
 
-// Función para inicializar después de que los componentes estén cargados
-function initializeAfterComponents() {
-    // Configurar menú móvil (hamburguesa)
+
+// ==========================================
+// MENÚ HAMBURGUESA
+// ==========================================
+
+function initializeMenuToggle() {
+
     const menuToggle = document.getElementById('menuToggle');
     const navList = document.querySelector('.nav-list');
 
-    if (menuToggle && navList) {
-        menuToggle.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            menuToggle.textContent = navList.classList.contains('active') ? '✕' : '☰';
-        });
+    if (!menuToggle || !navList) {
+        console.error('No se encontró el menú hamburguesa o la navegación');
+        return;
     }
+
+    // Evitar agregar el evento más de una vez
+    if (menuToggle.dataset.menuInitialized === 'true') {
+        return;
+    }
+
+    menuToggle.dataset.menuInitialized = 'true';
+
+    menuToggle.addEventListener('click', function () {
+
+        navList.classList.toggle('active');
+
+        const menuAbierto = navList.classList.contains('active');
+
+        menuToggle.textContent = menuAbierto ? '✕' : '☰';
+
+    });
+
+    // Cerrar menú cuando se pulsa un enlace
+    navList.querySelectorAll('a').forEach(link => {
+
+        link.addEventListener('click', function () {
+
+            navList.classList.remove('active');
+
+            menuToggle.textContent = '☰';
+
+        });
+
+    });
+}
+
+
+// Función para inicializar después de que los componentes estén cargados
+function initializeAfterComponents() {
 
     // Smooth scroll para enlaces internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -73,34 +130,47 @@ function initializeAfterComponents() {
     updateActiveNavOnScroll();
 }
 
+
 // Marcar el enlace activo mientras se hace scroll
 function updateActiveNavOnScroll() {
+
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-list a');
 
     window.addEventListener('scroll', () => {
+
         let current = '';
         const scrollPosition = window.scrollY + 100;
 
         sections.forEach(section => {
+
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
 
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            if (
+                scrollPosition >= sectionTop &&
+                scrollPosition < sectionTop + sectionHeight
+            ) {
                 current = section.getAttribute('id');
             }
+
         });
 
         navLinks.forEach(link => {
+
             link.classList.remove('active');
+
             const href = link.getAttribute('href').substring(1);
+
             if (href === current) {
                 link.classList.add('active');
             }
+
         });
+
     });
 }
 
+
 // Iniciar carga cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', loadAllComponents);
-
