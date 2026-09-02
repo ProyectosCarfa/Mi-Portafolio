@@ -70,47 +70,80 @@ async function loadAllComponents() {
 // MENÚ HAMBURGUESA
 // ==========================================
 
+// ==========================================
+// MENÚ HAMBURGUESA - VERSIÓN CORREGIDA
+// ==========================================
+
 function initializeMenuToggle() {
+    // Esperar a que el DOM esté listo
+    setTimeout(() => {
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navList = document.getElementById('navList');
 
-    const menuToggle = document.getElementById('menuToggle');
-    const navList = document.querySelector('.nav-list');
+        console.log('🔍 Buscando elementos:', { menuToggle, navMenu, navList });
 
-    if (!menuToggle || !navList) {
-        console.error('No se encontró el menú hamburguesa o la navegación');
-        return;
-    }
+        if (!menuToggle) {
+            console.error('❌ No se encontró el botón #menuToggle');
+            return;
+        }
 
-    // Evitar agregar el evento más de una vez
-    if (menuToggle.dataset.menuInitialized === 'true') {
-        return;
-    }
+        if (!navList) {
+            console.error('❌ No se encontró #navList');
+            return;
+        }
 
-    menuToggle.dataset.menuInitialized = 'true';
+        // Evitar duplicar eventos
+        if (menuToggle.dataset.menuInitialized === 'true') {
+            console.log('⚠️ Menú ya inicializado');
+            return;
+        }
 
-    menuToggle.addEventListener('click', function () {
+        menuToggle.dataset.menuInitialized = 'true';
+        console.log('✅ Menú inicializado correctamente');
 
-        navList.classList.toggle('active');
-
-        const menuAbierto = navList.classList.contains('active');
-
-        menuToggle.textContent = menuAbierto ? '✕' : '☰';
-
-    });
-
-    // Cerrar menú cuando se pulsa un enlace
-    navList.querySelectorAll('a').forEach(link => {
-
-        link.addEventListener('click', function () {
-
-            navList.classList.remove('active');
-
-            menuToggle.textContent = '☰';
-
+        // Toggle del menú
+        menuToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            navList.classList.toggle('active');
+            const isOpen = navList.classList.contains('active');
+            this.textContent = isOpen ? '✕' : '☰';
+            console.log('📱 Menú:', isOpen ? 'ABIERTO' : 'CERRADO');
         });
 
-    });
+        // Cerrar al hacer click en un enlace
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function () {
+                navList.classList.remove('active');
+                menuToggle.textContent = '☰';
+            });
+        });
+
+        // Cerrar al hacer click fuera
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.main-header')) {
+                navList.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        });
+
+    }, 100); // Pequeño delay para asegurar que el DOM esté listo
 }
 
+// Asegurar que se ejecute después de cargar el header
+function initializeMenuAfterLoad() {
+    // Si el header ya está cargado, inicializar
+    if (document.getElementById('menuToggle')) {
+        initializeMenuToggle();
+    } else {
+        // Si no, esperar el evento de carga
+        document.addEventListener('componentLoaded', function(e) {
+            if (e.detail.component.includes('header.html')) {
+                initializeMenuToggle();
+            }
+        });
+    }
+}
 
 // Función para inicializar después de que los componentes estén cargados
 function initializeAfterComponents() {
