@@ -330,180 +330,6 @@ h1, h2, h3, p, a, span, button {
 
 /* ===== RESPONSIVE COMPLETO ===== */
 
-/* Móviles pequeños (hasta 480px) */
-@media (max-width: 480px) {
-    .main-header {
-        top: 8px;
-        width: 92%;
-        padding: 0.45rem 0;
-        border-radius: 35px;
-    }
-    
-    .main-header.scrolled {
-        width: 94%;
-    }
-    
-    .logo {
-        position: relative;
-        left: 0;
-    }
-    
-    .logo img {
-        height: 42px;
-    }
-    
-    .logo-text {
-        display: none;
-    }
-    
-    .main-header .container {
-        justify-content: space-between;
-        padding: 0 0.8rem;
-    }
-    
-    .menu-toggle {
-        display: block;
-        position: relative;
-        right: 0;
-        font-size: 1rem;
-        padding: 0.3rem 0.7rem;
-    }
-    
-    .nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.96);
-        backdrop-filter: blur(20px);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease;
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
-        overflow: hidden;
-    }
-    
-    .nav.active {
-        max-height: 260px;
-    }
-    
-    .nav-list {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        padding: 0.7rem 0;
-    }
-    
-    .nav-list li {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .nav-list a {
-        display: block;
-        padding: 0.7rem;
-        font-size: 0.7rem;
-        letter-spacing: 1.5px;
-    }
-    
-    .nav-list a::before,
-    .nav-list a::after {
-        display: none;
-    }
-    
-    .nav-list a:hover {
-        background: rgba(0, 255, 255, 0.12);
-        color: #00ffff;
-    }
-}
-
-/* Móviles medianos y tablets pequeñas (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-    .main-header {
-        top: 12px;
-        width: 88%;
-        padding: 0.5rem 0;
-        border-radius: 40px;
-    }
-    
-    .main-header.scrolled {
-        width: 90%;
-    }
-    
-    .logo {
-        position: relative;
-        left: 0;
-    }
-    
-    .logo img {
-        height: 48px;
-    }
-    
-    .logo-text {
-        display: none;
-    }
-    
-    .main-header .container {
-        justify-content: space-between;
-        padding: 0 1rem;
-    }
-    
-    .menu-toggle {
-        display: block;
-        position: relative;
-        right: 0;
-    }
-    
-    .nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.96);
-        backdrop-filter: blur(20px);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease;
-        border-bottom-left-radius: 28px;
-        border-bottom-right-radius: 28px;
-        overflow: hidden;
-    }
-    
-    .nav.active {
-        max-height: 280px;
-    }
-    
-    .nav-list {
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        padding: 0.8rem 0;
-    }
-    
-    .nav-list li {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .nav-list a {
-        display: block;
-        padding: 0.8rem;
-        font-size: 0.75rem;
-        letter-spacing: 1.5px;
-    }
-    
-    .nav-list a::before,
-    .nav-list a::after {
-        display: none;
-    }
-    
-    .nav-list a:hover {
-        background: rgba(0, 255, 255, 0.12);
-        color: #00ffff;
-    }
-}
-
 /* Tablets (769px - 968px) */
 @media (min-width: 769px) and (max-width: 968px) {
     .main-header {
@@ -1365,6 +1191,8 @@ h1, h2, h3, p, a, span, button {
         min-height: 400px;
         margin-bottom: 2rem;
     }
+
+    
     
     .about-me-section h1 {
         font-size: 1.8rem;
@@ -2610,25 +2438,7 @@ h1, h2, h3, p, a, span, button {
     }
 }
 
-@media (max-width: 768px) {
 
-    .nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-    }
-
-    .nav-list {
-        display: none;
-        flex-direction: column;
-    }
-
-    .nav-list.active {
-        display: flex;
-    }
-
-}
 
 
 /* Estado activo del menú en móvil */
