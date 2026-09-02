@@ -2539,3 +2539,85 @@ h1, h2, h3, p, a, span, button {
         display: none;
     }
 }
+/* ===== RESPONSIVE HEADER - MÓVIL ===== */
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+    .main-header {
+        top: 8px;
+        width: 92%;
+        padding: 0.45rem 0;
+        border-radius: 35px;
+    }
+    
+    .main-header.scrolled {
+        width: 94%;
+    }
+    
+    .logo {
+        position: relative;
+        left: 0;
+    }
+    
+    .logo img {
+        height: 42px;
+    }
+    
+    .logo-text {
+        display: none;
+    }
+    
+    .main-header .container {
+        justify-content: space-between;
+        padding: 0 0.8rem;
+        position: relative;
+    }
+    
+    .menu-toggle {
+        display: block;
+        position: relative;
+        right: 0;
+        font-size: 1rem;
+        padding: 0.3rem 0.7rem;
+        z-index: 1001;
+    }
+}
+
+/* Móviles medianos y tablets pequeñas (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .main-header {
+        top: 12px;
+        width: 88%;
+        padding: 0.5rem 0;
+        border-radius: 40px;
+    }
+    
+    .main-header.scrolled {
+        width: 90%;
+    }
+    
+    .logo {
+        position: relative;
+        left: 0;
+    }
+    
+    .logo img {
+        height: 48px;
+    }
+    
+    .logo-text {
+        display: none;
+    }
+    
+    .main-header .container {
+        justify-content: space-between;
+        padding: 0 1rem;
+        position: relative;
+    }
+    
+    .menu-toggle {
+        display: block;
+        position: relative;
+        right: 0;
+    }
+}
