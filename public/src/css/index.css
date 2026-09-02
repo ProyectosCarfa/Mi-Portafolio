@@ -436,15 +436,6 @@ h1, h2, h3, p, a, span, button {
     }
 }
 
-
-
-
-
-
-
-
-
-/* ================ABOUT ME========= */
 /* ================ ABOUT-ME SECTION ================ */
 
 /* ===== SECCIÓN ABOUT-ME (HERO) ===== */
@@ -757,183 +748,6 @@ h1, h2, h3, p, a, span, button {
     }
 }
 
-
-
-
-
-
-
-
-/* container-info */
-/* ================ ABOUT-ME SECTION ================ */
-
-/* ===== SECCIÓN ABOUT-ME ===== */
-.about-me-section {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 100px 2rem 4rem;
-    position: relative;
-}
-
-.about-me-section .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-/* ===== BANNER PRINCIPAL ===== */
-.about-me-section .banner {
-    position: relative;
-    border-radius: 30px;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    min-height: 500px;
-    margin-bottom: 5rem;
-}
-
-@media (min-width: 969px) {
-    .about-me-section .banner {
-        justify-content: flex-start;
-    }
-    
-    .about-me-section .content {
-        text-align: left;
-        padding: 3rem;
-        max-width: 700px;
-    }
-    
-    .about-me-section .banner .buttons {
-        justify-content: flex-start;
-    }
-}
-
-.about-me-section .banner:hover {
-    border-color: rgba(0, 255, 255, 0.6);
-    box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
-}
-
-.banner-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0.3;
-    transition: opacity 0.4s ease;
-}
-
-.about-me-section .banner:hover .banner-image {
-    opacity: 0.5;
-}
-
-.about-me-section .content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 3rem;
-    max-width: 900px;
-}
-
-.bienvenida h3 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    letter-spacing: 3px;
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
-    margin-bottom: 1.5rem;
-    font-family: 'Orbitron', monospace;
-    animation: fadeInUpAbout 0.6s ease;
-}
-
-.about-me-section h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    line-height: 1.3;
-    margin-bottom: 2rem;
-    font-family: 'Orbitron', monospace;
-    animation: fadeInUpAbout 0.8s ease;
-}
-
-.about-me-section h1 span {
-    color: #00ffff;
-    text-shadow: 0 0 15px #00ffff;
-    position: relative;
-    display: inline-block;
-}
-
-.about-me-section h1 span::before {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00ffff, transparent);
-}
-
-.about-me-section .banner .buttons {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    animation: fadeInUpAbout 1s ease;
-}
-
-.about-me-section .banner button {
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Orbitron', monospace;
-    border: none;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #00ffff, #0088ff);
-    color: #000;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-}
-
-.btn-primary a {
-    color: #000;
-    text-decoration: none;
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
-}
-
-.btn-secondary {
-    background: transparent;
-    border: 2px solid #00ffff !important;
-    color: #00ffff;
-}
-
-.btn-secondary a {
-    color: #00ffff;
-    text-decoration: none;
-}
-
-.btn-secondary:hover {
-    background: rgba(0, 255, 255, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-}
-
 /* ===== INFO WRAPPER - SEPARADO DEL BANNER ===== */
 .info-wrapper {
     display: flex;
@@ -1105,39 +919,10 @@ h1, h2, h3, p, a, span, button {
     transform: scale(1.02);
 }
 
-/* Animaciones */
-@keyframes fadeInUpAbout {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE INFO WRAPPER ===== */
 
 /* Tablets */
 @media (max-width: 968px) {
-    .about-me-section {
-        padding: 100px 1.5rem 4rem;
-    }
-    
-    .about-me-section h1 {
-        font-size: 2.5rem;
-    }
-    
-    .bienvenida h3 {
-        font-size: 1rem;
-    }
-    
-    .about-me-section .banner {
-        min-height: 450px;
-        margin-bottom: 3rem;
-    }
-    
     .info-wrapper {
         flex-direction: column;
         align-items: center;
@@ -1183,38 +968,6 @@ h1, h2, h3, p, a, span, button {
 
 /* Móviles grandes */
 @media (max-width: 768px) {
-    .about-me-section {
-        padding: 140px 1rem 3rem;
-    }
-    
-    .about-me-section .banner {
-        min-height: 400px;
-        margin-bottom: 2rem;
-    }
-
-    
-    
-    .about-me-section h1 {
-        font-size: 1.8rem;
-    }
-    
-    .about-me-section .banner .buttons {
-        gap: 1rem;
-    }
-    
-    .about-me-section .banner button {
-        padding: 0.7rem 1.5rem;
-        font-size: 0.7rem;
-    }
-    
-    .bienvenida h3 {
-        font-size: 0.8rem;
-    }
-    
-    .about-me-section .content {
-        padding: 1.5rem;
-    }
-    
     .info-wrapper {
         margin-top: 1.5rem;
     }
@@ -1251,28 +1004,6 @@ h1, h2, h3, p, a, span, button {
 
 /* Móviles pequeños */
 @media (max-width: 480px) {
-    .about-me-section {
-        padding: 130px 0.8rem 2rem;
-    }
-    
-    .about-me-section .banner {
-        min-height: 350px;
-        margin-bottom: 1.5rem;
-    }
-    
-    .about-me-section h1 {
-        font-size: 1.4rem;
-    }
-    
-    .about-me-section .banner button {
-        padding: 0.5rem 1rem;
-        font-size: 0.6rem;
-    }
-    
-    .bienvenida h3 {
-        font-size: 0.7rem;
-    }
-    
     .info-image {
         width: 160px;
     }
@@ -1297,36 +1028,12 @@ h1, h2, h3, p, a, span, button {
 
 /* Altura pequeña */
 @media (max-height: 600px) {
-    .about-me-section {
-        padding: 120px 1rem 2rem;
-    }
-    
-    .about-me-section .banner {
-        min-height: 300px;
-        margin-bottom: 2rem;
-    }
-    
-    .about-me-section h1 {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-    }
-    
-    .bienvenida h3 {
-        margin-bottom: 0.8rem;
-    }
-    
-    .about-me-section .banner button {
-        padding: 0.5rem 1rem;
-        font-size: 0.6rem;
-    }
-    
     .info-image {
         width: 180px;
     }
 }
 
-
-/* ================PROJECTS=== *//* ================ PROJECTS SECTION ================ */
+/* ================ PROJECTS SECTION ================ */
 
 .projects-section {
     padding: 100px 2rem 4rem;
@@ -1352,17 +1059,6 @@ h1, h2, h3, p, a, span, button {
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(0, 255, 255, 0.3);
-}
-
-.banner-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0.3;
 }
 
 .banner-content {
@@ -1547,7 +1243,7 @@ h1, h2, h3, p, a, span, button {
     font-family: monospace;
 }
 
-/* ===== IMAGEN DE PRESENTACIÓN DENTRO DEL GRID - SIN FONDO NI BORDES ===== */
+/* ===== IMAGEN DE PRESENTACIÓN DENTRO DEL GRID ===== */
 .img-presentation {
     display: flex;
     align-items: center;
@@ -1585,7 +1281,7 @@ h1, h2, h3, p, a, span, button {
     filter: drop-shadow(0 0 25px rgba(0, 255, 255, 0.5));
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE PROJECTS ===== */
 
 /* Tablets (968px) */
 @media (max-width: 968px) {
@@ -1618,7 +1314,7 @@ h1, h2, h3, p, a, span, button {
         gap: 1.5rem;
     }
     
-    .banner {
+    .projects-section .banner {
         min-height: 220px;
     }
     
@@ -1650,7 +1346,7 @@ h1, h2, h3, p, a, span, button {
         padding: 120px 0.8rem 2rem;
     }
     
-    .banner {
+    .projects-section .banner {
         min-height: 180px;
         margin-bottom: 2rem;
     }
@@ -1704,7 +1400,7 @@ h1, h2, h3, p, a, span, button {
         padding: 120px 1rem 2rem;
     }
     
-    .banner {
+    .projects-section .banner {
         min-height: 180px;
         margin-bottom: 2rem;
     }
@@ -1743,9 +1439,6 @@ h1, h2, h3, p, a, span, button {
 .project-card:nth-child(6) { animation-delay: 0.3s; }
 .img-presentation { animation-delay: 0.35s; }
 
-
-
-/* ======CONTACT====== */
 /* ================ CONTACT SECTION ================ */
 
 .contact-section {
@@ -1803,14 +1496,6 @@ h1, h2, h3, p, a, span, button {
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 1rem;
-}
-
-.banner-line {
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(90deg, #00ffff, #00ff88);
-    margin: 0 auto;
-    border-radius: 3px;
 }
 
 /* ===== CONTACT WRAPPER ===== */
@@ -1999,7 +1684,7 @@ h1, h2, h3, p, a, span, button {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE CONTACT ===== */
 
 /* Tablets */
 @media (max-width: 968px) {
@@ -2138,10 +1823,6 @@ h1, h2, h3, p, a, span, button {
     }
 }
 
-
-
-
-/* ====Footer==== */
 /* ================ FOOTER SECTION ================ */
 
 .main-footer {
@@ -2324,7 +2005,7 @@ h1, h2, h3, p, a, span, button {
     letter-spacing: 1px;
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE FOOTER ===== */
 
 @media (max-width: 968px) {
     .main-footer {
@@ -2407,7 +2088,6 @@ h1, h2, h3, p, a, span, button {
     }
 }
 
-
 #about-container, #projects-container, #contactame-container {
     transition: all 0.3s ease;
 }
@@ -2438,41 +2118,13 @@ h1, h2, h3, p, a, span, button {
     }
 }
 
-
-
-
-/* Estado activo del menú en móvil */
-.nav.active .nav-list a {
-    animation: slideDown 0.3s ease forwards;
-    opacity: 0;
-}
-
-.nav.active .nav-list li:nth-child(1) a { animation-delay: 0.05s; }
-.nav.active .nav-list li:nth-child(2) a { animation-delay: 0.1s; }
-.nav.active .nav-list li:nth-child(3) a { animation-delay: 0.15s; }
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
 /* ===== FIX: MENÚ HAMBURGUESA EN MÓVIL ===== */
 
-/* Asegurar que el menú se muestra correctamente en móvil */
 @media (max-width: 768px) {
-    /* El contenedor .nav debe tener posicionamiento relativo para el menú desplegable */
     .main-header .container {
         position: relative;
     }
     
-    /* El menú desplegable */
     .nav {
         position: absolute;
         top: 100%;
@@ -2485,10 +2137,9 @@ h1, h2, h3, p, a, span, button {
         transition: max-height 0.4s ease;
         border-radius: 0 0 25px 25px;
         z-index: 999;
-        display: block !important; /* Forzar que sea visible en el flujo */
+        display: block !important;
     }
     
-    /* Cuando está activo, mostrar con altura */
     .nav.active {
         max-height: 300px;
         padding: 0.5rem 0;
@@ -2496,7 +2147,6 @@ h1, h2, h3, p, a, span, button {
         border-top: none;
     }
     
-    /* La lista de navegación */
     .nav-list {
         display: flex !important;
         flex-direction: column;
@@ -2509,7 +2159,6 @@ h1, h2, h3, p, a, span, button {
         transition: opacity 0.3s ease;
     }
     
-    /* Cuando .nav está activo, mostrar la lista con animación */
     .nav.active .nav-list {
         opacity: 1;
     }
@@ -2539,6 +2188,7 @@ h1, h2, h3, p, a, span, button {
         display: none;
     }
 }
+
 /* ===== RESPONSIVE HEADER - MÓVIL ===== */
 
 /* Móviles pequeños (hasta 480px) */
