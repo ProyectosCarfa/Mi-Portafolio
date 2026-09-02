@@ -306,7 +306,7 @@ h1, h2, h3, p, a, span, button {
 }
 
 /* ===== MENÚ HAMBURGUESA ===== */
-.menu-toogle {
+.menu-toggle {
     display: none;
     position: absolute;
     right: 1.2rem;
@@ -322,7 +322,7 @@ h1, h2, h3, p, a, span, button {
     font-family: monospace;
 }
 
-.menu-toogle:hover {
+.menu-toggle:hover {
     border-color: #00ffff;
     box-shadow: 0 0 12px rgba(0, 255, 255, 0.35);
     text-shadow: 0 0 6px #00ffff;
@@ -361,7 +361,7 @@ h1, h2, h3, p, a, span, button {
         padding: 0 0.8rem;
     }
     
-    .menu-toogle {
+    .menu-toggle {
         display: block;
         position: relative;
         right: 0;
@@ -449,7 +449,7 @@ h1, h2, h3, p, a, span, button {
         padding: 0 1rem;
     }
     
-    .menu-toogle {
+    .menu-toggle {
         display: block;
         position: relative;
         right: 0;
