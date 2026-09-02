@@ -48,9 +48,6 @@ async function loadAllComponents() {
     
     initializeAfterComponents();
 }
-// ==========================================
-// MENÚ HAMBURGUESA
-// ==========================================
 
 // ==========================================
 // MENÚ HAMBURGUESA - VERSIÓN CORREGIDA
@@ -59,19 +56,25 @@ async function loadAllComponents() {
 function initializeMenuToggle() {
     // Esperar a que el DOM esté listo
     setTimeout(() => {
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-        const navList = document.getElementById('navList');
+        // Buscar elementos por selector en lugar de ID para mayor robustez
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav');
+        const navList = document.querySelector('.nav-list');
 
         console.log('🔍 Buscando elementos:', { menuToggle, navMenu, navList });
 
         if (!menuToggle) {
-            console.error('❌ No se encontró el botón #menuToggle');
+            console.error('❌ No se encontró el botón .menu-toggle');
             return;
         }
 
         if (!navList) {
-            console.error('❌ No se encontró #navList');
+            console.error('❌ No se encontró .nav-list');
+            return;
+        }
+
+        if (!navMenu) {
+            console.error('❌ No se encontró .nav');
             return;
         }
 
@@ -84,11 +87,11 @@ function initializeMenuToggle() {
         menuToggle.dataset.menuInitialized = 'true';
         console.log('✅ Menú inicializado correctamente');
 
-        // Toggle del menú
+        // Toggle del menú - alternar clase en .nav
         menuToggle.addEventListener('click', function (e) {
             e.stopPropagation();
-            navList.classList.toggle('active');
-            const isOpen = navList.classList.contains('active');
+            navMenu.classList.toggle('active');
+            const isOpen = navMenu.classList.contains('active');
             this.textContent = isOpen ? '✕' : '☰';
             console.log('📱 Menú:', isOpen ? 'ABIERTO' : 'CERRADO');
         });
@@ -96,7 +99,7 @@ function initializeMenuToggle() {
         // Cerrar al hacer click en un enlace
         navList.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', function () {
-                navList.classList.remove('active');
+                navMenu.classList.remove('active');
                 menuToggle.textContent = '☰';
             });
         });
@@ -104,23 +107,23 @@ function initializeMenuToggle() {
         // Cerrar al hacer click fuera
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.main-header')) {
-                navList.classList.remove('active');
+                navMenu.classList.remove('active');
                 menuToggle.textContent = '☰';
             }
         });
 
-    }, 100); // Pequeño delay para asegurar que el DOM esté listo
+    }, 150); // Delay para asegurar que el DOM esté listo
 }
 
 // Asegurar que se ejecute después de cargar el header
 function initializeMenuAfterLoad() {
     // Si el header ya está cargado, inicializar
-    if (document.getElementById('menuToggle')) {
+    if (document.querySelector('.menu-toggle')) {
         initializeMenuToggle();
     } else {
         // Si no, esperar el evento de carga
         document.addEventListener('componentLoaded', function(e) {
-            if (e.detail.component.includes('header.html')) {
+            if (e.detail.component && e.detail.component.includes('header.html')) {
                 initializeMenuToggle();
             }
         });
@@ -144,7 +147,6 @@ function initializeAfterComponents() {
     // Marcar enlace activo según scroll
     updateActiveNavOnScroll();
 }
-
 
 // Marcar el enlace activo mientras se hace scroll
 function updateActiveNavOnScroll() {
@@ -185,7 +187,6 @@ function updateActiveNavOnScroll() {
 
     });
 }
-
 
 // Iniciar carga cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', loadAllComponents);
