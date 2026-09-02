@@ -2629,3 +2629,25 @@ h1, h2, h3, p, a, span, button {
     }
 
 }
+
+
+/* Estado activo del menú en móvil */
+.nav.active .nav-list a {
+    animation: slideDown 0.3s ease forwards;
+    opacity: 0;
+}
+
+.nav.active .nav-list li:nth-child(1) a { animation-delay: 0.05s; }
+.nav.active .nav-list li:nth-child(2) a { animation-delay: 0.1s; }
+.nav.active .nav-list li:nth-child(3) a { animation-delay: 0.15s; }
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
