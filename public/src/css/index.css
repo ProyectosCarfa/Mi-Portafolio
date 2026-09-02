@@ -2609,3 +2609,23 @@ h1, h2, h3, p, a, span, button {
         width: 200px;
     }
 }
+
+@media (max-width: 768px) {
+
+    .nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+    }
+
+    .nav-list {
+        display: none;
+        flex-direction: column;
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
+
+}
