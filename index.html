@@ -50,9 +50,76 @@
      <div id="user-counter" class="user-counter">
         <span class="counter-dot"></span>
         <span class="counter-number" id="online-count">0</span>
-        <span class="counter-label">en línea</span>
+        <span class="counter-label"> Usuarios visitantes</span>
     </div>
+    <div id="header-container"></div>
 
+
+    <script>
+        // ===== CONTADOR DE USUARIOS VISITANTES CON SUPABASE =====
+
+const SUPABASE_URL = 'https://yygrjszezdqtlgczxo.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_ph84j6bgSMAC3bvktqjFXA_hpmYQql6';
+
+// Leer el valor actual del contador
+async function leerContador() {
+    try {
+        const response = await fetch(
+            `${SUPABASE_URL}/rest/v1/visitas?select=contador&id=eq.1`,
+            {
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`
+                }
+            }
+        );
+        const data = await response.json();
+        return data[0]?.contador || 0;
+    } catch (error) {
+        console.error('Error leyendo contador:', error);
+        return 0;
+    }
+}
+
+// Incrementar el contador
+async function incrementarContador(valorActual) {
+    try {
+        await fetch(`${SUPABASE_URL}/rest/v1/visitas?id=eq.1`, {
+            method: 'PATCH',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ contador: valorActual + 1 })
+        });
+        return valorActual + 1;
+    } catch (error) {
+        console.error('Error incrementando contador:', error);
+        return valorActual;
+    }
+}
+
+// Mostrar el contador en el DOM
+async function mostrarContador() {
+    const elemento = document.getElementById('online-count');
+    if (!elemento) return;
+
+    let valor = await leerContador();
+
+    // Solo contar una vez por sesión
+    if (!sessionStorage.getItem('visita_contada')) {
+        valor = await incrementarContador(valor);
+        sessionStorage.setItem('visita_contada', 'true');
+    }
+
+    elemento.textContent = valor.toLocaleString();
+}
+
+// Ejecutar al cargar
+document.addEventListener('DOMContentLoaded', mostrarContador);
+    </script>
 
     <div id="header-container"></div>
 
