@@ -157,16 +157,14 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initializeAll, 500);
 });
 
-
-// ===== FORMULARIO DE CONTACTO: CORREO + WHATSAPP =====
+// ===== FORMULARIO DE CONTACTO: CORREO + WHATSAPP (VERSIÓN MEJORADA) =====
 function initContactFormConWhatsApp() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) {
         console.warn('⚠️ Formulario de contacto no encontrado');
         return;
     }
-    
-    // Evitar duplicar el evento si se recarga
+
     if (contactForm.dataset.initialized === 'true') return;
     contactForm.dataset.initialized = 'true';
 
@@ -175,6 +173,16 @@ function initContactFormConWhatsApp() {
 
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+
+        const submitBtn = contactForm.querySelector('.submit-btn');
+        const btnSpan = submitBtn.querySelector('span');
+        const textoOriginal = btnSpan.textContent;
+
+        // Estado: enviando
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.7';
+        submitBtn.style.cursor = 'wait';
+        btnSpan.textContent = 'Enviando...';
 
         const formData = new FormData(contactForm);
         const nombre  = formData.get('nombre')  || 'No especificado';
@@ -199,28 +207,100 @@ function initContactFormConWhatsApp() {
             });
 
             if (response.ok) {
-                window.open(urlWhatsApp, '_blank');
-                alert('¡Gracias! Tu mensaje se envió correctamente. También se abrirá WhatsApp para que puedas confirmarlo.');
+                // ✅ Éxito: mostrar notificación personalizada
+                mostrarNotificacion(
+                    '✅ ¡Mensaje enviado!',
+                    'Se abrirá WhatsApp para que confirmes el envío.',
+                    'exito'
+                );
+
                 contactForm.reset();
+
+                // ⏱️ Esperar 1.5 segundos antes de abrir WhatsApp
+                setTimeout(() => {
+                    window.open(urlWhatsApp, '_blank');
+                }, 1500);
+
             } else {
                 const data = await response.json();
                 const errorMsg = data.errors
                     ? data.errors.map(err => err.message).join(', ')
                     : 'Error desconocido al enviar.';
-                alert('Hubo un problema al enviar el correo: ' + errorMsg);
+
+                mostrarNotificacion(
+                    '❌ Error al enviar',
+                    errorMsg,
+                    'error'
+                );
             }
         } catch (error) {
             console.error('Error al enviar formulario:', error);
-            alert('Hubo un error de conexión. Por favor, inténtalo de nuevo.');
+            mostrarNotificacion(
+                '⚠️ Error de conexión',
+                'Por favor, inténtalo de nuevo en unos momentos.',
+                'error'
+            );
+        } finally {
+            // Restaurar botón
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+            submitBtn.style.cursor = 'pointer';
+            btnSpan.textContent = textoOriginal;
         }
     });
 
     console.log('✅ Formulario de contacto inicializado con Formspree + WhatsApp');
 }
 
+// ===== SISTEMA DE NOTIFICACIONES PERSONALIZADAS =====
+function mostrarNotificacion(titulo, mensaje, tipo = 'exito') {
+    // Eliminar notificaciones previas
+    const previas = document.querySelectorAll('.notificacion-portafolio');
+    previas.forEach(n => n.remove());
+
+    // Crear la notificación
+    const notif = document.createElement('div');
+    notif.className = `notificacion-portafolio notif-${tipo}`;
+
+    const icono = tipo === 'exito' ? '✅' : '⚠️';
+
+    notif.innerHTML = `
+        <div class="notif-icono">${icono}</div>
+        <div class="notif-contenido">
+            <h4>${titulo}</h4>
+            <p>${mensaje}</p>
+        </div>
+        <button class="notif-cerrar" aria-label="Cerrar">✕</button>
+        <div class="notif-progreso"></div>
+    `;
+
+    document.body.appendChild(notif);
+
+    // Animación de entrada
+    requestAnimationFrame(() => {
+        notif.classList.add('notif-visible');
+    });
+
+    // Botón cerrar
+    const btnCerrar = notif.querySelector('.notif-cerrar');
+    btnCerrar.addEventListener('click', () => cerrarNotificacion(notif));
+
+    // Auto-cerrar después de 5 segundos
+    const timer = setTimeout(() => cerrarNotificacion(notif), 5000);
+
+    // Guardar timer por si se cierra manualmente
+    notif._timer = timer;
+}
+
+function cerrarNotificacion(notif) {
+    if (notif._timer) clearTimeout(notif._timer);
+    notif.classList.remove('notif-visible');
+    setTimeout(() => notif.remove(), 400);
+}
+
 // Enganchar al evento componentLoaded
 document.addEventListener('componentLoaded', (e) => {
-    if (e.detail.component && e.detail.component.includes('./public/components/contactame.html')) {
+    if (e.detail.component && e.detail.component.includes('contactame.html')) {
         setTimeout(initContactFormConWhatsApp, 150);
     }
 });
