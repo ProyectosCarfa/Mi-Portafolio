@@ -72,16 +72,7 @@ function initProjectsFilters() {
     });
 }
 
-// ===== FORMULARIO DE CONTACTO =====
-function initContactForm() {
-    const form = document.getElementById('contactForm');
-    if (!form) return;
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('¡Gracias por tu mensaje! Te contactaré pronto.');
-        form.reset();
-    });
-}
+
 
 // ===== NAVEGACIÓN PRINCIPAL (OCULTAR/MOSTRAR) =====
 function initNavigation() {
@@ -139,7 +130,7 @@ function initializeAll() {
     initNavigation();
     initTabs();
     initProjectsFilters();
-    initContactForm();
+    // initContactForm();
 }
 
 // ===== EVENTOS =====
@@ -156,12 +147,80 @@ document.addEventListener('componentLoaded', (e) => {
     if (e.detail.component === './public/components/projects.html') {
         setTimeout(initProjectsFilters, 100);
     }
-    if (e.detail.component === './public/components/contactame.html') {
-        setTimeout(initContactForm, 100);
-    }
+    // if (e.detail.component === './public/components/contactame.html') {
+    //     setTimeout(initContactForm, 100);
+    // }
 });
 
 // Iniciar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initializeAll, 500);
+});
+
+
+// ===== FORMULARIO DE CONTACTO: CORREO + WHATSAPP =====
+function initContactFormConWhatsApp() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) {
+        console.warn('⚠️ Formulario de contacto no encontrado');
+        return;
+    }
+    
+    // Evitar duplicar el evento si se recarga
+    if (contactForm.dataset.initialized === 'true') return;
+    contactForm.dataset.initialized = 'true';
+
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkjnadrp';
+    const NUMERO_WHATSAPP = '51958661658';
+
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(contactForm);
+        const nombre  = formData.get('nombre')  || 'No especificado';
+        const email   = formData.get('email')   || 'No especificado';
+        const asunto  = formData.get('asunto')  || 'Sin asunto';
+        const mensaje = formData.get('mensaje') || 'Sin mensaje';
+
+        const textoWhatsApp =
+            `¡Hola Carlos! Te escribo desde tu portafolio.\n\n` +
+            `*Nombre:* ${nombre}\n` +
+            `*Correo:* ${email}\n` +
+            `*Asunto:* ${asunto}\n\n` +
+            `*Mensaje:*\n${mensaje}`;
+
+        const urlWhatsApp = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(textoWhatsApp)}`;
+
+        try {
+            const response = await fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                window.open(urlWhatsApp, '_blank');
+                alert('¡Gracias! Tu mensaje se envió correctamente. También se abrirá WhatsApp para que puedas confirmarlo.');
+                contactForm.reset();
+            } else {
+                const data = await response.json();
+                const errorMsg = data.errors
+                    ? data.errors.map(err => err.message).join(', ')
+                    : 'Error desconocido al enviar.';
+                alert('Hubo un problema al enviar el correo: ' + errorMsg);
+            }
+        } catch (error) {
+            console.error('Error al enviar formulario:', error);
+            alert('Hubo un error de conexión. Por favor, inténtalo de nuevo.');
+        }
+    });
+
+    console.log('✅ Formulario de contacto inicializado con Formspree + WhatsApp');
+}
+
+// Enganchar al evento componentLoaded
+document.addEventListener('componentLoaded', (e) => {
+    if (e.detail.component && e.detail.component.includes('./public/components/contactame.html')) {
+        setTimeout(initContactFormConWhatsApp, 150);
+    }
 });
